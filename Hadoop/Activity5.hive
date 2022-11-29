@@ -1,0 +1,29 @@
+#Creating and using DB
+create database office;
+
+use office;
+
+#Creating employee table and loading data in to it
+CREATE TABLE employee
+(id INT, name STRING, dept STRING, yoj INT, salary INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+LOAD DATA LOCAL INPATH '/EmpData.csv'
+INTO TABLE employee;
+
+#Select queries:
+SELECT * FROM employee;
+
+SELECT COUNT(*) FROM employee;
+
+
+#Sending result to HDFS
+INSERT OVERWRITE DIRECTORY '/user/namithak/output' 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM emp.employee;
+
+#Sending result to local directory
+INSERT OVERWRITE LOCAL DIRECTORY '/output' 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM emp.employee;
